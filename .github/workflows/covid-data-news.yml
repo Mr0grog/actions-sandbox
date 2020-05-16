@@ -52,8 +52,8 @@ jobs:
           echo 'Nothing to commit!'
         else
           # Configure git
-          # git config user.name ${{ secrets.githubaction_config_user_name }}
-          # git config user.email ${{ secrets.githubaction_config_user_email }}
+          git config user.name ${{ secrets.githubaction_config_user_name }}
+          git config user.email ${{ secrets.githubaction_config_user_email }}
 
           echo 'Committing updated news data...'
           git add data/news.json
