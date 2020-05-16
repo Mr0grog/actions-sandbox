@@ -48,7 +48,7 @@ jobs:
     
     - name: Commit Changes
       run: |
-        if [ -z "$(git status --porcelain)" ] then
+        if [ -z "$(git status --porcelain)" ]; then
           echo 'Nothing to commit!'
         else
           # Configure git
