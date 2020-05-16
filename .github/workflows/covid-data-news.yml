@@ -46,7 +46,7 @@ jobs:
     - name: Scrape News
       run: |
         echo "PWD: $(pwd)"
-        mkdir data
+        mkdir -p data
         cd data-covid19-sfbayarea
         python scraper_news.py --format json_simple > ../data/news.json
     
