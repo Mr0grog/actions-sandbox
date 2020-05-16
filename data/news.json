@@ -1,0 +1,54 @@
+{
+  "newsItems": [
+    {
+      "url": "https://sf.gov/news/retailers-reopen-curbside-pickup",
+      "text": "Retailers to reopen for curbside pickup",
+      "date": "2020-05-15T00:00:01Z"
+    },
+    {
+      "url": "https://sf.gov/news/new-health-directives-help-set-stage-safe-reopening",
+      "text": "New health directives help set stage for safe reopening",
+      "date": "2020-05-09T18:47:05Z"
+    },
+    {
+      "url": "https://sf.gov/news/differences-between-state-and-city-stay-home-orders-reopening-businesses",
+      "text": "Differences between state and City Stay Home orders in reopening businesses",
+      "date": "2020-05-07T22:29:45Z"
+    },
+    {
+      "url": "https://sf.gov/news/san-francisco-releases-tenderloin-neighborhood-safety-assessment-and-plan-covid-19",
+      "text": "San Francisco releases Tenderloin Neighborhood Safety Assessment and Plan for COVID-19",
+      "date": "2020-05-06T18:14:45Z"
+    },
+    {
+      "url": "https://sf.gov/news/san-francisco-and-bay-area-extend-stay-home-order-through-end-may",
+      "text": "San Francisco and Bay Area extend Stay Home order through end of May",
+      "date": "2020-04-29T19:26:54Z"
+    },
+    {
+      "url": "https://sf.gov/news/expansion-coronavirus-testing-all-essential-workers-sf",
+      "text": "Expansion of coronavirus testing for all essential workers in SF",
+      "date": "2020-04-23T04:11:56Z"
+    },
+    {
+      "url": "https://sf.gov/news/sfmta-starts-closing-some-sf-streets-promote-safety-and-physical-distancing",
+      "text": "SFMTA starts closing some SF streets to promote safety and physical distancing",
+      "date": "2020-04-21T21:05:46Z"
+    },
+    {
+      "url": "https://sf.gov/news/sf-issues-new-policy-face-coverings",
+      "text": "SF issues new policy on face coverings for the coronavirus outbreak",
+      "date": "2020-04-17T20:15:11Z"
+    },
+    {
+      "url": "https://sf.gov/news/san-francisco-converts-rec-facilities-emergency-child-care-centers",
+      "text": "San Francisco converts rec facilities to emergency child care centers",
+      "date": "2020-04-09T16:45:52Z"
+    },
+    {
+      "url": "https://sf.gov/news/sfmta-reduces-service-down-17-lines-due-covid-19-outbreak",
+      "text": "SFMTA reduces service down to 17 lines due to COVID-19 outbreak",
+      "date": "2020-04-06T16:40:26Z"
+    }
+  ]
+}
