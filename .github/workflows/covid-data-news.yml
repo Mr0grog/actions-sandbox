@@ -42,26 +42,27 @@ jobs:
     - name: Scrape News
       run: |
         echo "PWD: $(pwd)"
+        mkdir data
         cd data-covid19-sfbayarea
         python scraper_news.py --format json_simple > ../data/news.json
     
-    # - name: Commit Changes
-    #   run: |
-    #     if [ -z "$(git status --porcelain)" ] then
-    #       echo 'Nothing to commit!'
-    #     else
-    #       # Configure git
-    #       git config user.name ${{ secrets.githubaction_config_user_name }}
-    #       git config user.email ${{ secrets.githubaction_config_user_email }}
+    - name: Commit Changes
+      run: |
+        if [ -z "$(git status --porcelain)" ] then
+          echo 'Nothing to commit!'
+        else
+          # Configure git
+          # git config user.name ${{ secrets.githubaction_config_user_name }}
+          # git config user.email ${{ secrets.githubaction_config_user_email }}
 
-    #       echo 'Committing updated news data...'
-    #       git add data/news.json
-    #       git commit -m "GitHubAction: news data update.
+          echo 'Committing updated news data...'
+          git add data/news.json
+          git commit -m "GitHubAction: news data update.
 
-    #       Created with commit ${SCRAPER_COMMIT} from sfbrigade/data-covid19-sfbayarea
-    #       https://github.com/sfbrigade/data-covid19-sfbayarea/commit/${SCRAPER_COMMIT}
-    #       "
-    #       git push
-    #       echo "Committed: $(git show HEAD --no-patch --format=reference)"
-    #       echo 'You should make a pull request to put these changes on master!'
-    #     fi
+          Created with commit ${SCRAPER_COMMIT} from sfbrigade/data-covid19-sfbayarea
+          https://github.com/sfbrigade/data-covid19-sfbayarea/commit/${SCRAPER_COMMIT}
+          "
+          git push
+          echo "Committed: $(git show HEAD --no-patch --format=reference)"
+          echo 'You should make a pull request to put these changes on master!'
+        fi
