@@ -42,7 +42,7 @@ jobs:
     - name: Scrape News
       run: |
         echo "PWD: $(pwd)"
-        cd data-covid-19-sfbayarea
+        cd data-covid19-sfbayarea
         python scraper_news.py --format json_simple > ../data/news.json
     
     # - name: Commit Changes
