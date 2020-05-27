@@ -39,6 +39,7 @@ jobs:
         git checkout 60-hoover-up-alameda-covid-news
         python -m pip install --upgrade pip
         pip install -r requirements.txt;
+        python -m webdrivermanager firefox
         echo "PWD: $(pwd)"
 
         echo "::set-env name=SCRAPER_PATH::$(pwd)"
