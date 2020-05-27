@@ -66,7 +66,7 @@ jobs:
         export PATH="${LOCAL_BIN}:${PATH}"
         mkdir -p data
         cd $SCRAPER_PATH
-        python scraper_news.py --format json_simple alameda > "${GITHUB_WORKSPACE}/data/news_alameda.json"
+        python scraper_news.py --format json_simple alameda > "${GITHUB_WORKSPACE}/data/news_alameda.json" || (echo "" && echo "GECKODRIVER LOGS:" && cat geckodriver.log)
     
     - name: Commit Changes
       run: |
