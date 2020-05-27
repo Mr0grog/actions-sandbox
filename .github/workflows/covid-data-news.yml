@@ -39,8 +39,12 @@ jobs:
         git checkout 60-hoover-up-alameda-covid-news
         python -m pip install --upgrade pip
         pip install -r requirements.txt;
-        webdrivermanager firefox
+        # By default, this puts a symlink to the geckodriver binary at:
+        #   /home/runner/.local/share/WebDriverManager/bin/geckodriver
+        # But that's not on the PATH
+        webdrivermanager firefox --linkpath /usr/local/bin
         echo "PWD: $(pwd)"
+        echo "PATH: ${PATH}"
 
         echo "::set-env name=SCRAPER_PATH::$(pwd)"
         
