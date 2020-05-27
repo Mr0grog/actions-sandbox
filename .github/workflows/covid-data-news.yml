@@ -36,6 +36,7 @@ jobs:
         cd ..
         git clone https://github.com/sfbrigade/data-covid19-sfbayarea.git
         cd data-covid19-sfbayarea
+        git checkout 60-hoover-up-alameda-covid-news
         python -m pip install --upgrade pip
         pip install -r requirements.txt;
         echo "PWD: $(pwd)"
@@ -51,7 +52,7 @@ jobs:
         echo "PWD: $(pwd)"
         mkdir -p data
         cd $SCRAPER_PATH
-        python scraper_news.py --format json_simple > "${GITHUB_WORKSPACE}/data/news.json"
+        python scraper_news.py --format json_simple alameda > "${GITHUB_WORKSPACE}/data/news_alameda.json"
     
     - name: Commit Changes
       run: |
