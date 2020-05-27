@@ -36,7 +36,7 @@ jobs:
         cd ..
         git clone https://github.com/sfbrigade/data-covid19-sfbayarea.git
         cd data-covid19-sfbayarea
-        git checkout 60-hoover-up-alameda-covid-news
+        git checkout test-headless-selenium-in-actions
         python -m pip install --upgrade pip
         pip install -r requirements.txt;
         # # By default, this puts a symlink to the geckodriver binary at:
@@ -60,9 +60,9 @@ jobs:
         # TODO: try setting up Headless FF so we can drop xvfb
         # Reason for "-nolisten tcp", not documented within Xvfb manpages (for who knows what reason)
         # https://superuser.com/questions/855019/make-xvfb-listen-only-on-local-ip
-        export DISPLAY=:99
-        export DBUS_SESSION_BUS_ADDRESS=/dev/null
-        Xvfb :99 -screen 0 640x480x8 -nolisten tcp &
+        #export DISPLAY=:99
+        #export DBUS_SESSION_BUS_ADDRESS=/dev/null
+        #Xvfb :99 -screen 0 640x480x8 -nolisten tcp &
         
         echo "PWD: $(pwd)"
         # See: https://github.com/actions/virtual-environments/blob/master/images/linux/Ubuntu1804-README.md
