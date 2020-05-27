@@ -42,7 +42,10 @@ jobs:
         # By default, this puts a symlink to the geckodriver binary at:
         #   /home/runner/.local/share/WebDriverManager/bin/geckodriver
         # But that's not on the PATH
-        webdrivermanager firefox --linkpath /usr/local/bin
+        DRIVER_PATH="$(pwd)/env/bin"
+        mkdir -p "${DRIVER_PATH}"
+        export PATH="${DRIVER_PATH}:${PATH}"
+        webdrivermanager firefox --linkpath "${DRIVER_PATH}"
         echo "PWD: $(pwd)"
         echo "PATH: ${PATH}"
 
