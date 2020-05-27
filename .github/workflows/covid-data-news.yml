@@ -20,8 +20,6 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-      with:
-        ref: some-nonextant-branch-name
 
     - name: Log workspace path
       run: |
@@ -77,23 +75,28 @@ jobs:
         cd $SCRAPER_PATH
         python scraper_news.py --format json_simple alameda > "${GITHUB_WORKSPACE}/data/news_alameda.json" || (echo "" && echo "GECKODRIVER LOGS:" && cat geckodriver.log && fail)
     
-    - name: Commit Changes
-      run: |
-        if [[ "$(git status --porcelain)" =~ 'data/' ]]; then
-          # Configure git
-          git config user.name ${{ secrets.githubaction_config_user_name }}
-          git config user.email ${{ secrets.githubaction_config_user_email }}
+#     - name: Commit Changes
+#       run: |
+#         if [[ "$(git status --porcelain)" =~ 'data/' ]]; then
+#           # Configure git
+#           git config user.name ${{ secrets.githubaction_config_user_name }}
+#           git config user.email ${{ secrets.githubaction_config_user_email }}
 
-          echo 'Committing updated news data...'
-          git add data/
-          git commit -m "GitHubAction: news data update.
+#           echo 'Committing updated news data...'
+#           git add data/
+#           git commit -m "GitHubAction: news data update.
 
-          Created with commit ${SCRAPER_COMMIT} from sfbrigade/data-covid19-sfbayarea
-          https://github.com/sfbrigade/data-covid19-sfbayarea/commit/${SCRAPER_COMMIT}
-          "
-          git push
-          echo "Committed: $(git show HEAD --no-patch --format=reference)"
-          echo 'You should make a pull request to put these changes on master!'
-        else
-          echo 'Nothing to commit!'
-        fi
+#           Created with commit ${SCRAPER_COMMIT} from sfbrigade/data-covid19-sfbayarea
+#           https://github.com/sfbrigade/data-covid19-sfbayarea/commit/${SCRAPER_COMMIT}
+#           "
+#           git push
+#           echo "Committed: $(git show HEAD --no-patch --format=reference)"
+#           echo 'You should make a pull request to put these changes on master!'
+#         else
+#           echo 'Nothing to commit!'
+#         fi
+
+    - name: Make PR for Changes
+      uses: peter-evans/create-pull-request@v2
+      with:
+        branch: test-auto-pr-branch
