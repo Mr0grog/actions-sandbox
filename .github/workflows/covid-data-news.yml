@@ -60,7 +60,10 @@ jobs:
         echo "PWD: $(pwd)"
         # See: https://github.com/actions/virtual-environments/blob/master/images/linux/Ubuntu1804-README.md
         echo "Geckodriver: ${GECKOWEBDRIVER}"
-        export PATH="${GECKOWEBDRIVER}:${PATH}"
+        export LOCAL_BIN="$(pwd)/env/bin"
+        mkdir -p "${LOCAL_BIN}"
+        ln -s "${GECKOWEBDRIVER}" "${LOCAL_BIN}/geckodriver"
+        export PATH="${LOCAL_BIN}:${PATH}"
         mkdir -p data
         cd $SCRAPER_PATH
         python scraper_news.py --format json_simple alameda > "${GITHUB_WORKSPACE}/data/news_alameda.json"
