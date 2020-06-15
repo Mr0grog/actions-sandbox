@@ -36,7 +36,6 @@ jobs:
         cd ..
         git clone https://github.com/sfbrigade/data-covid19-sfbayarea.git
         cd data-covid19-sfbayarea
-        git checkout test-headless-selenium-in-actions
         python -m pip install --upgrade pip
         pip install -r requirements.txt;
         # # By default, this puts a symlink to the geckodriver binary at:
