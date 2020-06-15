@@ -76,6 +76,20 @@ jobs:
         echo "::set-env name=SCRAPER_TIME::$(date)"
         python scraper_news.py --format json_simple alameda > "${GITHUB_WORKSPACE}/data/news_alameda.json" || (echo "" && echo "GECKODRIVER LOGS:" && cat geckodriver.log && fail)
     
+    - name: Scrape Data
+      run: |
+        echo "PWD: $(pwd)"
+        # See: https://github.com/actions/virtual-environments/blob/master/images/linux/Ubuntu1804-README.md
+        echo "Geckodriver: ${GECKOWEBDRIVER}"
+        #export LOCAL_BIN="$(pwd)/env/bin"
+        #mkdir -p "${LOCAL_BIN}"
+        #ln -s "${GECKOWEBDRIVER}" "${LOCAL_BIN}/geckodriver"
+        #export PATH="${LOCAL_BIN}:${PATH}"
+        mkdir -p data
+        cd $SCRAPER_PATH
+        echo "::set-env name=SCRAPER_TIME::$(date)"
+        python scraper_data.py > "${GITHUB_WORKSPACE}/data/data.json" || (echo "" && echo "GECKODRIVER LOGS:" && cat geckodriver.log && fail)
+
 #     - name: Commit Changes
 #       run: |
 #         if [[ "$(git status --porcelain)" =~ 'data/' ]]; then
