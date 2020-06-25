@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: news.json update
+name: data.json update
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -49,9 +49,31 @@ jobs:
         
     - name: Scrape Data
       run: |
+        # Don't fail if individual commands fail here. We'll manually fail
+        # at the end.
+        set +e +o pipefail
+        # Temporary county-by-county outputs go in county_output/
+        # Then we combine them at the end.
         echo "::set-env name=SCRAPER_TIME::$(date)"
         cd ${GITHUB_WORKSPACE}/scraper
-        python scraper_data.py > ${GITHUB_WORKSPACE}/site/data/data.v2.json
+
+        counties='alameda contra_costa marin napa san_francisco san_mateo santa_clara solano sonoma'
+        mkdir county_output
+        OUTPUT_FILE="${GITHUB_WORKSPACE}/site/data/data.v2.json"
+        ERROR=''
+        for county in $counties; do
+          python scraper_data.py san_francisco > county_output/san_francisco.json
+          if [ "${?}" -ne 0 ]; then ERROR=true; fi
+        done
+
+        # Merge all the new data on top of the old data and save.
+        cp "${OUTPUT_FILE}" base.json
+        jq -s 'reduce .[] as $county ({}; . + $county)' base.json county_output/*.json > "${OUTPUT_FILE}"
+
+        # Exit with an error if any of the scrapers failed.
+        if [ -n "${ERROR}" ]; then
+          exit 1
+        fi
 
     - name: Create PR if New Data
       uses: peter-evans/create-pull-request@v2
