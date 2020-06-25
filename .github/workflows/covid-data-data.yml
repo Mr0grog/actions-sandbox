@@ -48,21 +48,21 @@ jobs:
         echo "::set-env name=SCRAPER_COMMIT::$(git rev-parse HEAD)"
         
     - name: Scrape Data
+      # Use a custom shell so individual commands don't fail. We want to run
+      # each county independently and keep the output from the ones that
+      # succeed. We'll keep track of what failed and manually fail at the end.
+      # at the end.
+      shell: bash {0}
       run: |
-        # Don't fail if individual commands fail here. We'll manually fail
-        # at the end.
-        set +e +o pipefail
-        # Temporary county-by-county outputs go in county_output/
-        # Then we combine them at the end.
         echo "::set-env name=SCRAPER_TIME::$(date)"
-        cd ${GITHUB_WORKSPACE}/scraper
 
         counties='alameda contra_costa marin napa san_francisco san_mateo santa_clara solano sonoma'
+        cd ${GITHUB_WORKSPACE}/scraper
         mkdir county_output
         OUTPUT_FILE="${GITHUB_WORKSPACE}/site/data/data.v2.json"
         ERROR=''
         for county in $counties; do
-          python scraper_data.py san_francisco > county_output/san_francisco.json
+          python scraper_data.py "${county}" > "county_output/${county}.json"
           if [ "${?}" -ne 0 ]; then ERROR=true; fi
         done
 
