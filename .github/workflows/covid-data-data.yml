@@ -60,7 +60,7 @@ jobs:
         pip install -r requirements.txt;
         # Keep track of the version used so we can use it in commit messages
         echo "::set-env name=SCRAPER_COMMIT::$(git rev-parse HEAD)"
-        
+
     # - name: Scrape Data
     #   # Use a custom shell so individual commands don't fail. We want to run
     #   # each county independently and keep the output from the ones that
@@ -94,7 +94,7 @@ jobs:
         echo "::set-env name=SCRAPER_TIME::$(date)"
         cd ${GITHUB_WORKSPACE}/scraper
         OUTPUT_FILE="${GITHUB_WORKSPACE}/site/data/data.v2.json"
-        python scraper_data.py > "${GITHUB_WORKSPACE}/site/data/data.v2.json"
+        # python scraper_data.py > "${GITHUB_WORKSPACE}/site/data/data.v2.json"
 
     - name: Create PR if New Data
       uses: peter-evans/create-pull-request@v2
