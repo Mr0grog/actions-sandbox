@@ -38,13 +38,17 @@ jobs:
         python-version: '3.x'
     
     # Cache Dependencies
+    - name: Get pip cache dir
+      id: pip-cache
+      run: |
+        echo "::set-output name=dir::$(pip cache dir)"
     - name: Setup Pip Caching
       uses: actions/cache@v2
       with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/requirements-dev.txt') }}
+        path: ${{ steps.pip-cache.outputs.dir }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('scraper/requirements.txt') }}-${{ hashFiles('scraper/requirements-dev.txt') }}
         restore-keys: |
-          ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}-
+          ${{ runner.os }}-pip-${{ hashFiles('scraper/requirements.txt') }}-
           ${{ runner.os }}-pip-
     
     # Install dependencies
