@@ -35,7 +35,7 @@ jobs:
                   data = yaml.load(file, Loader=yaml.CLoader)
 
               exit_code = 0
-              for name, job in data.get('jobs', []).items():
+              for name, job in data.get('jobs', {}).items():
                   for index, step in enumerate(job.get('steps', [])):
                       if 'run' not in step:
                           continue
@@ -60,6 +60,19 @@ jobs:
 
           exit_code = 0
           for child in Path('./.github/workflows/').iterdir():
-              exit_code = check_workflow(child) or exit_code
+              if child.suffix == '.yaml' or child.suffix == '.yml':
+                  exit_code = check_workflow(child) or exit_code
 
           sys.exit(exit_code)
+
+  lint_workflow_run_steps_node:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Install Dependencies
+        run: npm install js-yaml
+      - name: Lint Workflow Scripts
+        run: node .github/workflows/validate-workflow-run-steps.js
