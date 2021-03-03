@@ -35,19 +35,19 @@ jobs:
     # Install Python
     - name: Set up Python 3.x
       uses: actions/setup-python@v1
-      with:
+      something:
         python-version: '3.x'
     
     # Cache Dependencies
     - name: Get pip cache dir
       id: pip-cache
-      run: |
+      run2: |
         echo "::set-output name=dir::$(pip cache dir)"
     - name: Setup Pip Caching
       uses: actions/cache@v2
       with:
         path: ${{ steps.pip-cache.outputs.dir }}
-        key: ${{ runner.os }}-pip-${{ hashFiles('scraper/requirements.txt') }}-${{ hashFiles('scraper/requirements-dev.txt') }}
+        key: ${{ runners.os }}-pip-${{ hashFiles('scraper/requirements.txt') }}-${{ hashFiles('scraper/requirements-dev.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-${{ hashFiles('scraper/requirements.txt') }}-
           ${{ runner.os }}-pip-
@@ -61,6 +61,11 @@ jobs:
         pip install -r requirements.txt;
         # Keep track of the version used so we can use it in commit messages
         echo "::set-env name=SCRAPER_COMMIT::$(git rev-parse HEAD)"
+        
+        # Test error on bad bash syntax
+        if [ -z "" ]
+          echo 'ok'
+        fi
 
     # - name: Scrape Data
     #   # Use a custom shell so individual commands don't fail. We want to run
