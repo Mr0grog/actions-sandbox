@@ -33,7 +33,7 @@ jobs:
               with filepath.open() as file:
                   data = yaml.load(file, Loader=yaml.CLoader)
 
-              code = 0
+              exit_code = 0
               for name, job in data.get('jobs', []).items():
                   for index, step in enumerate(job.get('steps', [])):
                       if 'run' not in step:
@@ -55,7 +55,7 @@ jobs:
                               line = line.partition('-c: ')[2] or line
                               print(f'  {line}')
               
-              return code
+              return exit_code
 
           exit_code = 0
           for child in Path('./.github/workflows/').iterdir():
