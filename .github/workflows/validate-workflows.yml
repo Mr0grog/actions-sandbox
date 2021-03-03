@@ -17,7 +17,7 @@ jobs:
       - name: Install Dependencies
         run: pip install pyyaml
       - name: Lint Workflow Scripts
-        shell: python3
+        shell: python
         run: |
           import re
           from subprocess import run
