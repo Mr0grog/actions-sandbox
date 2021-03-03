@@ -9,3 +9,23 @@ jobs:
       - uses: cschleiden/actions-linter@v1
         with:
           workflows: '[".github/workflows/*.yaml", ".github/workflows/*.yml"]'
+
+  lint_workflow_run_steps_node:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - name: Install Dependencies
+        run: npm install js-yaml
+      - name: Lint Workflow Scripts
+        run: node .github/workflows/validate-workflow-run-steps.js
+
+  lint_workflow_run_steps_python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+      - name: Install Dependencies
+        run: pip install pyyaml
+      - name: Lint Workflow Scripts
+        run: python .github/workflows/validate-workflow-run-steps.py
