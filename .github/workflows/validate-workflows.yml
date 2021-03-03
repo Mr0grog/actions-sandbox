@@ -8,4 +8,52 @@ jobs:
       - uses: actions/checkout@v2
       - uses: cschleiden/actions-linter@v1
         with:
-          workflows: '[".github/workflows/*.{yaml,yml}"]'
+          workflows: '[".github/workflows/*.yaml", ".github/workflows/*.yml"]'
+
+  lint_workflow_run_steps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: pip install pyyaml
+      - name: Lint Workflow Scripts
+        shell: python3
+        run: |
+          import re
+          from subprocess import run
+          import sys
+          import yaml
+          from yaml import CLoader as Loader
+
+          def check_workflow(filepath):
+              with filepath.open() as file:
+                  data = yaml.load(file, Loader=yaml.CLoader)
+
+              code = 0
+              for name, job in data.get('jobs', []).items():
+                  for index, step in enumerate(job.get('steps', [])):
+                      if 'run' not in step:
+                          continue
+                      
+                      step_name = f'{filepath.name} job "{name}", step "{step.get("name", index)}"'
+                      if step.get('shell', 'bash').startswith('bash')):
+                          print(f'? {step_name}')
+                          print(f'  Cannot evaluate non-bash run steps (shell: "{step["shell"]}")')
+                      
+                      result = run(['bash', '-c', '-n', step['run']], capture_output=True)
+                      if result.returncode == 0:
+                          print(f'✔︎ {step_name}')
+                      if result.returncode > 0:
+                          exit_code = 1
+                          print(f'✘ ERROR: {step_name}')
+                          for line in result.stderr.decode().split('\n'):
+                              line = line.partition('-c: ')[2] or line
+                              print(f'  {line}')
+              
+              return code
+
+          exit_code = 0
+          for child in Path('./.github/workflows/').iterdir():
+              exit_code = check_workflow(child) or exit_code
+
+          sys.exit(exit_code)
