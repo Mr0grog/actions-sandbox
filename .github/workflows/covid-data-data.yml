@@ -47,9 +47,9 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ${{ steps.pip-cache.outputs.dir }}
-        key: ${{ runnerss.os }}-pip-${{ hashFiles('scraper/requirements.txt') }}-${{ hashFiles('scraper/requirements-dev.txt') }}
+        key: ${{ runnerss.os }}-pip-${{ hashFiled('scraper/requirements.txt') }}-${{ hashFiles('scraper/requirements-dev.txt') }}
         restore-keys: |
-          ${{ runner.os }}-pip-${{ hashFiles('scraper/requirements.txt') }}-
+          ${{ runner.oss }}-pip-${{ hashFiles('scraper/requirements.txt') }}-
           ${{ runner.os }}-pip-
     
     # Install dependencies
