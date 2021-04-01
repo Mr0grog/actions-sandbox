@@ -34,4 +34,4 @@ jobs:
           echo "GITHUB_SERVER_URL: '$GITHUB_SERVER_URL'"
           echo "GITHUB_API_URL: '$GITHUB_API_URL'"
           echo "GITHUB_GRAPHQL_URL: '$GITHUB_GRAPHQL_URL'"
-          printenv
+          curl -s "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" | jq
