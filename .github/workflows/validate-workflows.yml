@@ -9,7 +9,7 @@ permissions:
   discussions: read
   id-token: read
   issues: read
-  metadata: read
+  # metadata: read
   packages: read
   pages: read
   pull-requests: read
