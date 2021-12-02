@@ -12,14 +12,13 @@ jobs:
       discussions: read
       id-token: none
       issues: read
-      metadata: none
+      metadata: write
       packages: read
       pages: read
       pull-requests: read
       repository-projects: read
       security-events: read
       statuses: write
-      whatever: read
 
     steps:
       - uses: actions/checkout@v2
