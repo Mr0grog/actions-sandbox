@@ -12,7 +12,7 @@ jobs:
       discussions: read
       id-token: none
       issues: read
-      # metadata: read
+      metadata: read
       packages: read
       pages: read
       pull-requests: read
