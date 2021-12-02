@@ -10,7 +10,7 @@ jobs:
       contents: read
       deployments: read
       discussions: read
-      id-token: write
+      id-token: read
       issues: read
       # metadata: read
       packages: read
