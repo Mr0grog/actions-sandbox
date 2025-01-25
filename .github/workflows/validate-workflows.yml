@@ -1,8 +1,5 @@
 name: Lint workflows
-# on: pull_request
-on:
-  pull_request:
-    branches: [not-a-real-branch]
+on: pull_request
 
 jobs:
   lint_workflows:
