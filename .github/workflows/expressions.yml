@@ -1,0 +1,14 @@
+name: Test Expressions
+on: pull_request
+
+jobs:
+  expressions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Missing variables
+        env:
+          TEST_ME: "${{ vars.whatever || 'fallback-value' }}"
+        run: |
+          echo "TEST_ME='${TEST_ME}'"
