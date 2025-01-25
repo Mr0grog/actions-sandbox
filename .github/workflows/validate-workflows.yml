@@ -1,6 +1,6 @@
 name: Lint workflows
 # on: pull_request
-one: {}
+on: {}
 
 jobs:
   lint_workflows:
