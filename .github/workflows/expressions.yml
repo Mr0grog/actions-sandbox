@@ -12,3 +12,4 @@ jobs:
           TEST_ME: "${{ vars.whatever || 'fallback-value' }}"
         run: |
           echo "TEST_ME='${TEST_ME}'"
+          echo 'github.event.repository=${{ toJSON(github.event.repository) }}'
