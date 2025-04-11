@@ -1,0 +1,54 @@
+name: Failure Continuation
+on: push
+
+jobs:
+  failure_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail (but continue on error)
+        id: fail-continue-step
+        continue-on-error: true
+        run: 'false'
+
+      - name: Log state
+        if: ${{ always() }}
+        run: |
+          echo 'step conclusion = "${{ steps.fail-continue-step.conclusion }}"'
+          echo 'step outcome    = "${{ steps.fail-continue-step.outcome }}"'
+      
+      - name: Run if success()
+        if: ${{ success() }}
+        run: 'echo "success() = true"'
+      
+      - name: Run if failure()
+        if: ${{ failure() }}
+        run: 'echo "failure() = true"'
+      
+      - name: Run if cancelled()
+        if: ${{ cancelled() }}
+        run: 'echo "cancelled() = true"'
+      
+      - name: Fail (hard, no continue)
+        id: fail-hard-step
+        run: 'false'
+      
+      - name: Log state
+        if: ${{ always() }}
+        run: |
+          echo 'step conclusion = "${{ steps.fail-hard-step.conclusion }}"'
+          echo 'step outcome    = "${{ steps.fail-hard-step.outcome }}"'
+      
+      - name: Run if success()
+        if: ${{ success() }}
+        run: 'echo "success() = true"'
+      
+      - name: Run if failure()
+        if: ${{ failure() }}
+        run: 'echo "failure() = true"'
+      
+      - name: Run if cancelled()
+        if: ${{ cancelled() }}
+        run: 'echo "cancelled() = true"'
+
+      - name: Should never run
+        run: 'echo "hi"'
