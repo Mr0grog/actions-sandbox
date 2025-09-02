@@ -6,13 +6,21 @@ on:
       name:
         required: false
         type: string
+    outputs:
+      subject:
+        description: 'Who was greeted'
+        value: ${{ jobs.hello.outputs.subject }}
 
 jobs:
   hello:
     runs-on: ubuntu-latest
+    outputs:
+      subject: ${{ steps.say-hello.outputs.subject }}
     steps:
       - uses: actions/checkout@v5
 
-      - name: Say hello
+      - id: say-hello
+        name: Say hello
         run: |
           echo 'HELLO, ${{ inputs.name || 'no-name' }}'
+          echo "subject=${{ inputs.name || 'no-name' }}" >> $GITHUB_OUTPUT
