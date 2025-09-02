@@ -1,0 +1,18 @@
+name: Reuse workflow
+on:
+  push: {}
+
+jobs:
+  say-hello:
+    uses: ./.github/workflows/hello.yml
+    with:
+      name: 'Parent'
+
+  say-goodbye:
+    needs:
+      - say-hello
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say goodbye
+        run: |
+          echo 'GOODBYE!'
