@@ -24,3 +24,4 @@ jobs:
         run: |
           echo 'HELLO, ${{ inputs.name || 'no-name' }}'
           echo "subject=${{ inputs.name || 'no-name' }}" >> $GITHUB_OUTPUT
+          false
